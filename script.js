@@ -79,3 +79,75 @@ window.addEventListener('keydown', (event) => {
         playSound(soundData, card);
     }
 });
+const soundUrlInput = document.getElementById('sound-url');
+const soundKeyInput = document.getElementById('sound-key');
+const addBtn = document.getElementById('add-btn');
+const board = document.getElementById('board');
+
+// Хранилище для звуков
+const sounds = {};
+
+// Функция создания карточки звука
+function createSoundCard(url, key) {
+    const soundKey = key.toLowerCase();
+    
+    // Создаем элемент карточки
+    const card = document.createElement('div');
+    card.className = 'sound-card';
+    card.id = `card-${soundKey}`;
+    
+    card.innerHTML = `
+        <span class="key-badge">${soundKey.toUpperCase()}</span>
+        <button class="delete-btn" onclick="deleteSound('${soundKey}')">✕</button>
+    `;
+    
+    // Создаем аудио объект
+    sounds[soundKey] = new Audio(url);
+    
+    // Воспроизведение по клику на карточку
+    card.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('delete-btn')) {
+            playSound(soundKey);
+        }
+    });
+
+    board.appendChild(card);
+}
+
+// Функция проигрывания
+function playSound(key) {
+    if (sounds[key]) {
+        sounds[key].currentTime = 0;
+        sounds[key].play().catch(err => console.log("Ошибка воспроизведения:", err));
+    }
+}
+
+// Функция удаления клавиши
+function deleteSound(key) {
+    if (sounds[key]) {
+        delete sounds[key]; // Удаляем звук из памяти
+        const card = document.getElementById(`card-${key}`);
+        if (card) card.remove(); // Удаляем карточку с экрана
+    }
+}
+
+// Добавление новой клавиши
+addBtn.addEventListener('click', () => {
+    const url = soundUrlInput.value.trim();
+    const key = soundKeyInput.value.trim();
+
+    if (!url || !key) {
+        alert('Заполните оба поля!');
+        return;
+    }
+
+    createSoundCard(url, key);
+    soundUrlInput.value = '';
+    soundKeyInput.value = '';
+});
+
+// Слушатель нажатий клавиатуры
+window.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    playSound(key);
+});
