@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e2e;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+input, button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+input {
+    background-color: #313244;
+    color: #fff;
+}
+
+button {
+    background-color: #89b4fa;
+    color: #11111b;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #74c7ec;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-width: 800px;
+    justify-content: center;
+}
+
+.sound-card {
+    background-color: #313244;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 100px;
+    cursor: pointer;
+    user-select: none;
+    border: 2px solid transparent;
+    transition: all 0.1s ease;
+}
+
+.sound-card:hover {
+    border-color: #89b4fa;
+}
+
+.sound-card.active {
+    background-color: #a6e3a1;
+    color: #11111b;
+    transform: scale(0.95);
+}
+
+.key-badge {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
